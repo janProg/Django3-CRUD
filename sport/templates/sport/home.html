@@ -1,0 +1,57 @@
+{% extends "sport/base.html" %}
+
+{% block content %}
+
+<main>
+  {% if trainings %}  
+    <section class="py-3 text-center container">
+      <div class="row py-lg-3">
+        <div class="col-lg-5 col-md-8 mx-auto">
+          <h1 class="fw-light">Sports diary </h1>
+          <p class="lead text-muted">Here you can add a diary entry.</p>
+          <p>
+            <a href="sport/new/" class="btn btn-success my-2">New Sports Diary</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">  
+        {% for training in trainings %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ training.sport }}</h5>
+              <p class="card-text">On {{ training.date|date:"d F Y" }}</p>
+              <h2>It was {{ training.feedback }}</h2>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <a href="{% url 'sport-update' training.id %}" class="btn btn-primary my-2">Edit</a> 
+                  <a href="{% url 'sport-delete' training.id %}" class="btn btn-danger my-2">Delete</a>
+                </div>
+                <small class="text-muted">{{ training.duration }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <section class="py-3 text-center container">
+      <div class="row py-lg-3">
+        <div class="col-lg-5 col-md-8 mx-auto">
+          <h2 class="fw-light">There are no data to display. </h1>
+          <p class="lead text-muted">Here you can add a diary entry.</p>
+          <p>
+            <a href="sport/new/" class="btn btn-success my-2">New Sports Diary</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  {% endif %} 
+  </main>
+{% endblock content %}
